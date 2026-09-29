@@ -1,0 +1,8 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="WIFI 1">
+<foreignObject x="-28" y="-25" width="80" height="74"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(14px);clip-path:url(#bgblur_0_0_4_clip_path);height:100%;width:100%"></div></foreignObject><path id="Vector" data-figma-bg-blur-radius="28" d="M0 8.2695L2.1825 10.584C7.6035 4.8315 16.3965 4.8315 21.8175 10.584L24 8.2695C17.3775 1.2435 6.633 1.2435 0 8.2695ZM8.727 17.5275L12 21L15.273 17.5275C13.473 15.6075 10.5375 15.6075 8.727 17.5275ZM4.365 12.9L6.5475 15.2145C9.558 12.0195 14.445 12.0195 17.4555 15.2145L19.6365 12.9C15.426 8.433 8.586 8.433 4.3635 12.9H4.365Z" fill="white" fill-opacity="0.8"/>
+</g>
+<defs>
+<clipPath id="bgblur_0_0_4_clip_path" transform="translate(28 25)"><path d="M0 8.2695L2.1825 10.584C7.6035 4.8315 16.3965 4.8315 21.8175 10.584L24 8.2695C17.3775 1.2435 6.633 1.2435 0 8.2695ZM8.727 17.5275L12 21L15.273 17.5275C13.473 15.6075 10.5375 15.6075 8.727 17.5275ZM4.365 12.9L6.5475 15.2145C9.558 12.0195 14.445 12.0195 17.4555 15.2145L19.6365 12.9C15.426 8.433 8.586 8.433 4.3635 12.9H4.365Z"/>
+</clipPath></defs>
+</svg>

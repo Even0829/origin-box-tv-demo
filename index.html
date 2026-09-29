@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#251e19" />
+    <title>小元 · 引元盒子电视 Demo</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main id="stage" class="stage" aria-label="小元电视端空气优化演示">
+      <div class="scene" aria-hidden="true"><img src="./assets/living-room.png" alt="" /></div>
+      <div class="scene-shade" aria-hidden="true"></div>
+      <div class="air-haze" aria-hidden="true"></div>
+
+      <header class="topbar">
+        <button id="world-trigger" class="brand-title focusable" aria-label="查看小元 World Model 的状态依据" aria-expanded="false">
+          <img src="./assets/orb.svg" alt="" />
+          <span>小元World Model</span>
+        </button>
+        <div class="top-meta" aria-label="电视状态">
+          <img class="wifi-icon" src="./assets/wifi-figma.svg" alt="" />
+          <time id="clock">9月28日 周一&nbsp;&nbsp;18:00</time>
+          <img class="weather-icon" src="./assets/weather.png" alt="" />
+          <span>晴&nbsp; 26℃</span>
+          <span class="avatar" aria-hidden="true"><img class="avatar-base" src="./assets/avatar-circle.svg" alt="" /><span class="avatar-person-crop"><img src="./assets/avatar-person-figma.png" alt="" /></span></span>
+        </div>
+      </header>
+
+      <section id="world-card" class="world-card glass focusable" tabindex="0" role="button" aria-label="查看空间状态依据" aria-expanded="false">
+        <div class="world-main">
+          <p>· 空间：客厅</p>
+          <p id="presence">· 人数：未见人在场</p>
+          <p id="activity">· 活动：暂无</p>
+        </div>
+        <img class="divider" src="./assets/divider.svg" alt="" />
+        <div class="world-environment">
+          <p class="world-section-label">· 温湿度：</p>
+          <p class="world-values">26.5°&nbsp;&nbsp;&nbsp;&nbsp;56%</p>
+          <p class="world-section-label">· 空气指标：</p>
+          <p id="air-state" class="air-value" data-tone="normal">平稳</p>
+        </div>
+        <span id="world-pulse" class="world-pulse" aria-hidden="true"></span>
+      </section>
+
+      <button id="event-card" class="event-card glass focusable is-hidden" type="button" tabindex="-1" aria-hidden="true" aria-label="查看客厅空气数据依据">
+        <span class="event-body">
+          <span class="event-head"><span class="event-label">CO₂</span><span id="event-trend" class="event-trend" hidden>持续上升</span></span>
+          <span class="event-reading"><span id="event-number" class="event-number" data-tone="warning">960</span><span class="event-unit">ppm</span></span>
+          <span id="event-service" class="event-service" hidden><span>低噪新风</span><span id="event-service-value"></span></span>
+        </span>
+      </button>
+
+      <aside id="device-receipt" class="device-receipt glass is-hidden" role="status" aria-live="polite" aria-atomic="true" aria-hidden="true">
+        <img id="device-receipt-image" class="device-receipt-image" src="./assets/lamp-device.png" alt="" />
+        <div class="device-receipt-copy">
+          <div id="device-receipt-name" class="device-receipt-name"></div>
+          <div id="device-receipt-description" class="device-receipt-description"></div>
+        </div>
+        <div id="device-receipt-level" class="device-receipt-level" hidden>
+          <span class="device-receipt-track"><span id="device-receipt-fill" class="device-receipt-fill"></span></span>
+          <span id="device-receipt-percent" class="device-receipt-percent"></span>
+        </div>
+      </aside>
+
+      <nav class="nav glass" aria-label="小元导航">
+        <button class="nav-item active focusable" data-page="home"><img src="./assets/home.svg" alt="" /><span>主页</span></button>
+        <button class="nav-item focusable" data-page="space"><img src="./assets/space.svg" alt="" /><span>空间</span></button>
+        <button class="nav-item focusable" data-page="device"><img src="./assets/device.svg" alt="" /><span>设备</span></button>
+        <button class="nav-item focusable" data-page="memory"><img src="./assets/memory.svg" alt="" /><span>记忆</span></button>
+        <button class="nav-item focusable" data-page="tv"><img src="./assets/tv.svg" alt="" /><span>电视</span></button>
+      </nav>
+
+      <section class="expression" aria-live="polite" aria-atomic="true">
+        <h1 id="expression-title">客厅安静如常</h1>
+        <p id="expression-subtitle">小元在安静地照看这个家</p>
+      </section>
+
+      <section id="detail" class="detail glass hidden" aria-label="状态依据">
+        <div class="detail-head"><span id="detail-kicker">状态依据</span><button id="detail-close" class="close focusable" aria-label="关闭">×</button></div>
+        <h2 id="detail-title">客厅</h2>
+        <div id="detail-content" class="detail-content"></div>
+        <p class="detail-foot">演示数据 · 非真实设备状态</p>
+      </section>
+
+      <aside id="log-panel" class="log-panel hidden" role="region" aria-labelledby="log-title" aria-hidden="true" inert>
+        <div class="log-head">
+          <h2 id="log-title">最近日志</h2>
+          <button id="log-close" class="log-close focusable" type="button" aria-label="关闭最近日志">×</button>
+        </div>
+        <ol id="log-list" class="log-list" aria-label="按时间由近到远的小元行为"></ol>
+        <p id="log-empty" class="log-empty" hidden>小元还没有新的行为记录</p>
+        <div class="log-pagination">
+          <button id="log-prev" class="log-page-button focusable" type="button" aria-label="上一页日志">上一页</button>
+          <span id="log-page-status" aria-live="polite">1 / 1</span>
+          <button id="log-next" class="log-page-button focusable" type="button" aria-label="下一页日志">下一页</button>
+        </div>
+      </aside>
+
+      <button id="voice" class="voice glass focusable" aria-label="与小元交流，模拟语音询问">
+        <span class="voice-wave" aria-hidden="true">
+          <img class="wave-bar bar-1" src="./assets/mic.svg" alt="" />
+          <img class="wave-bar bar-2" src="./assets/mic.svg" alt="" />
+          <img class="wave-bar bar-3" src="./assets/mic.svg" alt="" />
+          <img class="wave-bar bar-4" src="./assets/mic.svg" alt="" />
+          <img class="wave-bar bar-5" src="./assets/mic.svg" alt="" />
+        </span>
+        <span class="voice-copy"><span id="voice-text">请随时吩咐小元</span><span class="voice-dots" aria-hidden="true"><span>·</span><span>·</span><span>·</span></span></span>
+      </button>
+      <button id="log-toggle" class="log-toggle glass focusable" type="button" aria-controls="log-panel" aria-expanded="false"><img src="./assets/recent-log.svg" alt="" /><span>最近日志</span></button>
+    </main>
+    <script src="./main.js"></script>
+  </body>
+</html>
