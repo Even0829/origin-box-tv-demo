@@ -27,6 +27,7 @@ const detailFoot = document.querySelector('.detail-foot');
 const voice = document.getElementById('voice');
 const voiceText = document.getElementById('voice-text');
 const logToggle = document.getElementById('log-toggle');
+const peopleToggle = document.getElementById('people-toggle');
 const logPanel = document.getElementById('log-panel');
 const logClose = document.getElementById('log-close');
 const logList = document.getElementById('log-list');
@@ -204,6 +205,7 @@ function fillDetail() {
   }
 }
 function openLogPanel() {
+  if(panel==='people')peopleUI.hide();
   if(!panel)resumeAfterPanel=!paused;
   panel='logs';
   pause(true);
@@ -223,6 +225,7 @@ function openLogPanel() {
   logClose.focus();
 }
 function openPanel(name) {
+  if(panel==='people')peopleUI.hide();
   if(name==='logs'){openLogPanel();return;}
   if(!panel){resumeAfterPanel=!paused;pause(true);}
   const fromLogs=panel==='logs';
@@ -240,6 +243,7 @@ function openPanel(name) {
   if(name!=='world'||fromLogs) document.getElementById('detail-close').focus();
 }
 function closePanel() {
+  if(panel==='people')peopleUI.hide();
   panel='';detail.classList.add('hidden');
   logPanel.classList.add('hidden');
   logPanel.inert=true;
@@ -286,7 +290,7 @@ function render(next, immediate=false) {
     stage.classList.toggle('air-recover',s.key==='improving');
     if(!panel&&s.key==='presence')receiptTriggerTimer=setTimeout(()=>{if(!panel&&story[index].key==='presence')showDeviceReceipt(deviceReceipts.lamp);},1500);
     if(!panel&&s.key==='confirmed')receiptTriggerTimer=setTimeout(()=>{if(!panel&&story[index].key==='confirmed')showDeviceReceipt(deviceReceipts.air);},1000);
-    if(panel&&panel!=='logs')fillDetail();
+    if(panel&&panel!=='logs'&&panel!=='people')fillDetail();
     pulse.classList.remove('active');void pulse.offsetWidth;pulse.classList.add('active');
     requestAnimationFrame(()=>expression.classList.remove('changing'));
   };
@@ -308,6 +312,7 @@ logClose.addEventListener('click',()=>{closePanel();logToggle.focus();});
 logPrev.addEventListener('click',()=>changeLogPage(-1));
 logNext.addEventListener('click',()=>changeLogPage(1));
 voice.addEventListener('click',()=>{
+  if(panel==='people'){peopleUI.respond();return;}
   if(voice.classList.contains('listening')||voiceText.textContent==='小元正在回应')return;
   clearTimeout(voiceTimer);
   const wasPaused=paused;
@@ -335,6 +340,7 @@ voice.addEventListener('click',()=>{
   },1700);
 });
 document.addEventListener('keydown',e=>{
+  if(peopleUI.onKeyDown(e))return;
   if(e.key==='Escape'||e.key==='Backspace'){
     if(panel){const was=panel;closePanel();if(was==='logs')logToggle.focus();e.preventDefault();}
     return;
@@ -356,8 +362,10 @@ document.addEventListener('keydown',e=>{
     const current=nav.indexOf(document.activeElement);
     if(current>=0){e.preventDefault();nav[(current+(e.key==='ArrowDown'?1:nav.length-1))%nav.length].focus();}
   }
-  if(e.key==='ArrowRight'&&(nav.includes(document.activeElement)||document.activeElement===voice)){e.preventDefault();logToggle.focus();return;}
-  if(e.key==='ArrowLeft'&&document.activeElement===logToggle){e.preventDefault();nav.find(button=>button.classList.contains('active')).focus();return;}
+  if(e.key==='ArrowRight'&&(nav.includes(document.activeElement)||document.activeElement===voice)){e.preventDefault();peopleToggle.focus();return;}
+  if(e.key==='ArrowRight'&&document.activeElement===peopleToggle){e.preventDefault();logToggle.focus();return;}
+  if(e.key==='ArrowLeft'&&document.activeElement===peopleToggle){e.preventDefault();nav.find(button=>button.classList.contains('active')).focus();return;}
+  if(e.key==='ArrowLeft'&&document.activeElement===logToggle){e.preventDefault();peopleToggle.focus();return;}
   if(e.key===' '&&document.activeElement===document.body){e.preventDefault();pause(!paused);}
   if((e.key==='ArrowRight'||e.key==='ArrowLeft')&&document.activeElement===document.body){e.preventDefault();render(index+(e.key==='ArrowRight'?1:-1));}
   if((e.key==='r'||e.key==='R')&&document.activeElement===document.body){logHistory=[...previousLogs];loggedThisCycle.clear();logPage=0;pause(false);render(0);}
